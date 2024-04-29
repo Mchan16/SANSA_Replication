@@ -1,5 +1,8 @@
 # Replication Project: SANSA on Diversity Metrics
-The metadata for the Amazon books and Million Song Data sets are provided in datasets/metadata, however the datasets will have to be downloaded from the links below.
+Most metadata for the Amazon books and Million Song Data sets are provided in datasets/metadata.
+Download the amazon books metadata [here](https://cseweb.ucsd.edu/~jmcauley/datasets/amazon/links.html)
+
+The datasets will have to be downloaded from the links below.
 
 Please run the jupyterbooks in sansa to replicate the novelty and intralist similarity results.
 
