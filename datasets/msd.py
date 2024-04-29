@@ -20,6 +20,16 @@ from datasets.dataset import Dataset
 
 
 class MSD(Dataset):
+    # Inherit and add additional attribute to inverse_transform item data -Mao
+    def __init__(
+        self,
+        name: str,
+        folder: str = "./data",
+        processed_file: str = "ratings.parquet",
+    ):
+        super().__init__(name, folder, processed_file)
+        self.item_decoder = None
+
     def _read_raw_data(self) -> None:
         """
         Loads raw data and stores it in self.dataset.
@@ -45,6 +55,9 @@ class MSD(Dataset):
         users_all = user_encoder.fit_transform(users_all)
         items_all = item_encoder.fit_transform(items_all)
 
+        # Added to decode encoded item ids
+        self.item_decoder = item_encoder
+    
         self.dataset = pd.DataFrame(
             {
                 "user_id": users_all,

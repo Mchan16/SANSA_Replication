@@ -11,6 +11,8 @@
 Evaluation functions.
 """
 
+import recmetrics
+
 import numpy as np
 import pandas as pd
 
@@ -68,7 +70,7 @@ def evaluate(
     recalls = {k: [] for k in ks}
     recalls_BARS = {k: [] for k in ks}
     ndcgs = {k: [] for k in ks}
-
+ 
     for batch_start in range(0, total_users, batch_size):
         if batch_start + batch_size > total_users:
             batch_end = total_users
@@ -94,6 +96,7 @@ def evaluate(
             recalls_batch = []
             recalls_BARS_batch = []
             ndcgs_batch = []
+            
 
             for i in range(len(batch_users)):
                 target_ids = batch_target_ids_dict[batch_keys[i]]
@@ -105,6 +108,7 @@ def evaluate(
             recalls[k] += recalls_batch
             recalls_BARS[k] += recalls_BARS_batch
             ndcgs[k] += ndcgs_batch
+          
 
     for k in ks:
         if "recall" in metrics:
@@ -113,5 +117,8 @@ def evaluate(
             stats[k]["recall BARS"] = get_stats(metrics=recalls_BARS[k])
         if "ndcg" in metrics:
             stats[k]["ndcg"] = get_stats(metrics=ndcgs[k])
+        
+        # prediction for each user
+        print(preds[k][1:10])
 
     return stats
